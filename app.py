@@ -815,41 +815,41 @@ with aba_analise:
         st.info("Nenhuma admissão prevista nas próximas semanas.")
     else:
         max_sem = max(v for _, v in semanas_ord) or 1
-        cal_rows = ""
+        cal_items = []
         for inicio, count in semanas_ord:
             fim     = inicio + timedelta(days=6)
-            label   = f"{inicio.strftime('%d/%m')} – {fim.strftime('%d/%m/%Y')}"
-            semana  = f"Sem. {inicio.strftime('%d/%m')}"
+            semana  = "Sem. " + inicio.strftime("%d/%m")
+            label   = inicio.strftime("%d/%m") + " – " + fim.strftime("%d/%m/%Y")
             pct     = round((count / max_sem) * 100)
             is_now  = inicio <= hoje_dt <= fim
             urgente = count >= 5
-
-            if is_now:
-                cor = "#185FA5"; bg = "#eff6ff"; border = "2px solid #185FA5"
-            elif urgente:
-                cor = "#A32D2D"; bg = "#fff9f9"; border = "1.5px solid #e4e7ec"
-            else:
-                cor = "#0F6E56"; bg = "white";   border = "1.5px solid #e4e7ec"
-
-            cal_rows += f"""
-            <div style="display:flex;align-items:center;gap:14px;background:{bg};
-                        border:{border};border-radius:8px;padding:10px 14px;margin-bottom:8px;">
-              <div style="width:90px;flex-shrink:0;">
-                <div style="font-size:11px;font-weight:700;color:{cor};">{semana}</div>
-                <div style="font-size:10px;color:#98a2b3;">{label}</div>
-              </div>
-              <div style="flex:1;height:12px;background:#e4e7ec;border-radius:6px;overflow:hidden;">
-                <div style="height:12px;width:{pct}%;background:{cor};border-radius:6px;
-                            transition:width .4s;"></div>
-              </div>
-              <div style="width:28px;font-size:16px;font-weight:700;color:{cor};text-align:right;">{count}</div>
-              {"<div style='font-size:10px;background:#eff6ff;color:#185FA5;padding:2px 8px;border-radius:10px;font-weight:600;'>semana atual</div>" if is_now else ""}
-            </div>"""
-
-        st.markdown(
-            f'<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">' +
-            cal_rows + '</div>', unsafe_allow_html=True
+            cor     = "#185FA5" if is_now else ("#A32D2D" if urgente else "#0F6E56")
+            bg      = "#eff6ff" if is_now else ("#fff9f9" if urgente else "white")
+            border  = ("2px solid #185FA5" if is_now else "1.5px solid #e4e7ec")
+            badge   = ('<span style="font-size:10px;background:#eff6ff;color:#185FA5;'
+                       'padding:2px 8px;border-radius:10px;font-weight:600;margin-left:8px;">'
+                       'semana atual</span>') if is_now else ""
+            cal_items.append(
+                '<div style="display:flex;align-items:center;gap:14px;background:' + bg + ';'
+                'border:' + border + ';border-radius:8px;padding:10px 14px;margin-bottom:8px;">'
+                '<div style="width:90px;flex-shrink:0;">'
+                '<div style="font-size:11px;font-weight:700;color:' + cor + ';">' + semana + '</div>'
+                '<div style="font-size:10px;color:#98a2b3;">' + label + '</div>'
+                '</div>'
+                '<div style="flex:1;height:12px;background:#e4e7ec;border-radius:6px;overflow:hidden;">'
+                '<div style="height:12px;width:' + str(pct) + '%;background:' + cor + ';border-radius:6px;"></div>'
+                '</div>'
+                '<div style="width:36px;font-size:15px;font-weight:700;color:' + cor + ';text-align:right;">' + str(count) + '</div>'
+                + badge +
+                '</div>'
+            )
+        cal_html = (
+            '<!DOCTYPE html><html><head><meta charset="UTF-8">'
+            '<style>*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Arial,sans-serif;}'
+            'body{background:transparent;padding:0;}</style></head><body>'
+            + "".join(cal_items) + '</body></html>'
         )
+        components.html(cal_html, height=len(cal_items) * 62 + 16, scrolling=False)
 
     st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
 
@@ -867,20 +867,21 @@ with aba_analise:
             for etapa, media in etapa_media_ord:
                 pct = round((media / max_dias) * 100)
                 cor = "#E24B4A" if media > 30 else "#BA7517" if media > 14 else "#0F6E56"
-                etapa_rows += f"""
-                <div style="margin-bottom:10px;">
-                  <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
-                    <span style="font-size:11px;color:#475467;font-weight:500;">{etapa}</span>
-                    <span style="font-size:11px;font-weight:700;color:{cor};">{media}d</span>
-                  </div>
-                  <div style="height:8px;background:#e4e7ec;border-radius:4px;overflow:hidden;">
-                    <div style="height:8px;width:{pct}%;background:{cor};border-radius:4px;"></div>
-                  </div>
-                </div>"""
+                etapa_rows += (
+                    '<div style="margin-bottom:10px;">'
+                    '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">'
+                    '<span style="font-size:11px;color:#475467;font-weight:500;">' + etapa + '</span>'
+                    '<span style="font-size:11px;font-weight:700;color:' + cor + ';">' + str(media) + 'd</span>'
+                    '</div>'
+                    '<div style="height:8px;background:#e4e7ec;border-radius:4px;overflow:hidden;">'
+                    '<div style="height:8px;width:' + str(pct) + '%;background:' + cor + ';border-radius:4px;"></div>'
+                    '</div></div>'
+                )
             st.markdown(
-                f'<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">' +
-                f'<div style="font-size:10px;color:#98a2b3;margin-bottom:12px;">🟢 &lt;14d &nbsp; 🟠 14–30d &nbsp; 🔴 &gt;30d</div>' +
-                etapa_rows + '</div>', unsafe_allow_html=True
+                '<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">'
+                '<div style="font-size:10px;color:#98a2b3;margin-bottom:12px;">🟢 &lt;14d &nbsp; 🟠 14–30d &nbsp; 🔴 &gt;30d</div>'
+                + etapa_rows + '</div>',
+                unsafe_allow_html=True
             )
 
     # ══════════════════════════════════════════
@@ -894,19 +895,20 @@ with aba_analise:
             marca_rows = ""
             for marca, count in marca_ord:
                 pct = round((count / max_marca) * 100)
-                marca_rows += f"""
-                <div style="margin-bottom:10px;">
-                  <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
-                    <span style="font-size:11px;color:#475467;font-weight:500;">{marca}</span>
-                    <span style="font-size:11px;font-weight:700;color:#185FA5;">{count}</span>
-                  </div>
-                  <div style="height:8px;background:#e4e7ec;border-radius:4px;overflow:hidden;">
-                    <div style="height:8px;width:{pct}%;background:#185FA5;border-radius:4px;"></div>
-                  </div>
-                </div>"""
+                marca_rows += (
+                    '<div style="margin-bottom:10px;">'
+                    '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">'
+                    '<span style="font-size:11px;color:#475467;font-weight:500;">' + marca + '</span>'
+                    '<span style="font-size:11px;font-weight:700;color:#185FA5;">' + str(count) + '</span>'
+                    '</div>'
+                    '<div style="height:8px;background:#e4e7ec;border-radius:4px;overflow:hidden;">'
+                    '<div style="height:8px;width:' + str(pct) + '%;background:#185FA5;border-radius:4px;"></div>'
+                    '</div></div>'
+                )
             st.markdown(
-                f'<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">' +
-                marca_rows + '</div>', unsafe_allow_html=True
+                '<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">'
+                + marca_rows + '</div>',
+                unsafe_allow_html=True
             )
 
 
@@ -978,7 +980,7 @@ const PRIOR_CFG = {{
 }};
 const RESP_CFG = {{
   'COLABORADOR': {{label:'👤 Colaborador', cls:'b-colab'}},
-  'ADMISSÃO':        {{label:'🏢 Admissão',        cls:'b-time'}},
+  'ADMISSÃO':    {{label:'🏢 Admissão',    cls:'b-time'}},
   'RECRUTAMENTO':{{label:'✏️ Recrutamento',cls:'b-rec'}},
   'REMUNERAÇÃO': {{label:'💰 Remuneração', cls:'b-rec'}},
   'TERCEIRO':    {{label:'🔬 Terceiro',    cls:'b-ter'}},
@@ -1018,8 +1020,6 @@ document.getElementById('board').innerHTML=colunas.map(col=>{{
   const urgB=urg>0?`<span class="urg-badge">${{urg}} urg.</span>`:'';
   return `<div class="col ${{col.cls}}"><div class="col-header"><span style="font-size:14px;">${{col.icon}}</span><span class="col-title">${{esc(col.etapa)}}</span>${{urgB}}<span class="col-count">${{lista.length}}</span></div><div class="col-body">${{cards}}${{mais}}</div></div>`;
 }}).join('');
-
-// Auto-resize para o iframe pai
 function autoResize() {{
   const h = document.body.scrollHeight;
   window.parent.postMessage({{type:'streamlit:setFrameHeight', height: h}}, '*');
@@ -1047,11 +1047,11 @@ with aba_tabela:
     with col_f4:
         resp_acoes = {
             "Todos": "",
-            "👤 Colaborador":   "COLABORADOR",
-            "🏢 Admissão":       "ADMISSÃO",
             "✏️ Recrutamento":  "RECRUTAMENTO",
             "💰 Remuneração":   "REMUNERAÇÃO",
+            "👤 Colaborador":   "COLABORADOR",
             "🔬 Terceiros":     "TERCEIRO",
+            "🏢 Admissão":      "ADMISSÃO",
         }
         f_resp_acao = resp_acoes[st.selectbox("Responsável pela ação", list(resp_acoes.keys()))]
     with col_f5:
@@ -1067,7 +1067,7 @@ with aba_tabela:
     if f_resp_acao:             filtrados = [r for r in filtrados if r["resp_acao"]      == f_resp_acao]
     if f_etapa     != "Todas":  filtrados = [r for r in filtrados if r["etapa"]          == f_etapa]
 
-    st.caption(f"Exibindo {len(filtrados)} de {len(registros)} registros" + (" (filtro KPI ativo)" if _filtro_tipo else ""))
+    st.caption(f"Exibindo {len(filtrados)} de {len(registros)} registros")
 
     if not filtrados:
         st.info("Nenhum registro encontrado com os filtros selecionados.")
