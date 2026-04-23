@@ -763,13 +763,12 @@ with aba_analise:
 
     # ── Dados auxiliares ─────────────────────
     from datetime import timedelta
+    from calendar import monthrange
+
     hoje_dt = date.today()
 
-    # Semanas futuras (próximas 5)
-    def inicio_semana(d):
-        return d - timedelta(days=d.weekday())
-
-    semanas = {}
+    # Admissões por dia (próximos 2 meses)
+    admissoes_por_dia = {}
     for r in registros:
         if r["data_admissao"] == "—":
             continue
@@ -777,139 +776,170 @@ with aba_analise:
             dt = datetime.strptime(r["data_admissao"], "%d/%m/%Y").date()
         except Exception:
             continue
-        if dt < hoje_dt - timedelta(days=7):
-            continue
-        inicio = inicio_semana(dt)
-        semanas[inicio] = semanas.get(inicio, 0) + 1
+        if dt >= hoje_dt - timedelta(days=7):
+            admissoes_por_dia[dt] = admissoes_por_dia.get(dt, 0) + 1
 
-    semanas_ord = sorted(semanas.items())[:6]
-
-    # Tempo médio parado por etapa
-    etapa_dias = {}
-    for r in registros:
-        if r["dias_parado"] is None:
-            continue
-        e = r["etapa"]
-        if e not in etapa_dias:
-            etapa_dias[e] = []
-        etapa_dias[e].append(r["dias_parado"])
-
-    etapa_media = {e: round(sum(v)/len(v)) for e, v in etapa_dias.items() if v}
-    etapa_media_ord = sorted(etapa_media.items(), key=lambda x: -x[1])[:10]
-    max_dias = max((v for _, v in etapa_media_ord), default=1)
+    # Tempo médio total do processo
+    dias_validos = [r["dias_parado"] for r in registros if r["dias_parado"] is not None]
+    media_total  = round(sum(dias_validos) / len(dias_validos)) if dias_validos else 0
 
     # Distribuição por marca
     marca_count = {}
     for r in registros:
         m = r["marca"] or "Sem marca"
         marca_count[m] = marca_count.get(m, 0) + 1
-    marca_ord = sorted(marca_count.items(), key=lambda x: -x[1])[:12]
-    max_marca = max((v for _, v in marca_ord), default=1)
+    marca_ord  = sorted(marca_count.items(), key=lambda x: -x[1])[:12]
+    max_marca  = max((v for _, v in marca_ord), default=1)
 
     # ══════════════════════════════════════════
-    # 1. Calendário de admissões previstas
+    # Card: Tempo médio total
     # ══════════════════════════════════════════
-    st.markdown("### 📅 Admissões previstas por semana")
+    st.markdown("### ⏱ Tempo médio do processo")
 
-    if not semanas_ord:
-        st.info("Nenhuma admissão prevista nas próximas semanas.")
-    else:
-        max_sem = max(v for _, v in semanas_ord) or 1
-        cal_items = []
-        for inicio, count in semanas_ord:
-            fim     = inicio + timedelta(days=6)
-            semana  = "Sem. " + inicio.strftime("%d/%m")
-            label   = inicio.strftime("%d/%m") + " – " + fim.strftime("%d/%m/%Y")
-            pct     = round((count / max_sem) * 100)
-            is_now  = inicio <= hoje_dt <= fim
-            urgente = count >= 5
-            cor     = "#185FA5" if is_now else ("#A32D2D" if urgente else "#0F6E56")
-            bg      = "#eff6ff" if is_now else ("#fff9f9" if urgente else "white")
-            border  = ("2px solid #185FA5" if is_now else "1.5px solid #e4e7ec")
-            badge   = ('<span style="font-size:10px;background:#eff6ff;color:#185FA5;'
-                       'padding:2px 8px;border-radius:10px;font-weight:600;margin-left:8px;">'
-                       'semana atual</span>') if is_now else ""
-            cal_items.append(
-                '<div style="display:flex;align-items:center;gap:14px;background:' + bg + ';'
-                'border:' + border + ';border-radius:8px;padding:10px 14px;margin-bottom:8px;">'
-                '<div style="width:90px;flex-shrink:0;">'
-                '<div style="font-size:11px;font-weight:700;color:' + cor + ';">' + semana + '</div>'
-                '<div style="font-size:10px;color:#98a2b3;">' + label + '</div>'
-                '</div>'
-                '<div style="flex:1;height:12px;background:#e4e7ec;border-radius:6px;overflow:hidden;">'
-                '<div style="height:12px;width:' + str(pct) + '%;background:' + cor + ';border-radius:6px;"></div>'
-                '</div>'
-                '<div style="width:36px;font-size:15px;font-weight:700;color:' + cor + ';text-align:right;">' + str(count) + '</div>'
-                + badge +
-                '</div>'
-            )
-        cal_html = (
-            '<!DOCTYPE html><html><head><meta charset="UTF-8">'
-            '<style>*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Arial,sans-serif;}'
-            'body{background:transparent;padding:0;}</style></head><body>'
-            + "".join(cal_items) + '</body></html>'
-        )
-        components.html(cal_html, height=len(cal_items) * 62 + 16, scrolling=False)
+    cor_media = "#A32D2D" if media_total > 30 else "#BA7517" if media_total > 14 else "#0F6E56"
+    bg_media  = "#FCEBEB" if media_total > 30 else "#FAEEDA" if media_total > 14 else "#E1F5EE"
+    txt_media = "acima do ideal" if media_total > 30 else "atenção recomendada" if media_total > 14 else "dentro do esperado"
+
+    st.markdown(
+        '<div style="background:white;border:1.5px solid #e4e7ec;border-top:3px solid ' + cor_media + ';'
+        'border-radius:10px;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:20px;">'
+        '<div style="font-size:56px;font-weight:500;line-height:1;color:' + cor_media + ';">' + str(media_total) + '</div>'
+        '<div>'
+        '<div style="font-size:11px;color:#475467;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">dias em média</div>'
+        '<div style="font-size:12px;color:#98a2b3;">do início do processo até hoje</div>'
+        '<span style="display:inline-block;margin-top:6px;font-size:10px;font-weight:600;padding:2px 9px;'
+        'border-radius:20px;background:' + bg_media + ';color:' + cor_media + ';">' + txt_media + '</span>'
+        '</div>'
+        '</div>',
+        unsafe_allow_html=True
+    )
 
     st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
 
-    col_l, col_r = st.columns(2)
+    # ══════════════════════════════════════════
+    # Calendário — grid de dias
+    # ══════════════════════════════════════════
+    st.markdown("### 📅 Admissões previstas")
 
-    # ══════════════════════════════════════════
-    # 2. Tempo médio parado por etapa
-    # ══════════════════════════════════════════
-    with col_l:
-        st.markdown("### ⏱ Tempo médio parado por etapa")
-        if not etapa_media_ord:
-            st.info("Sem dados suficientes.")
-        else:
-            etapa_rows = ""
-            for etapa, media in etapa_media_ord:
-                pct = round((media / max_dias) * 100)
-                cor = "#E24B4A" if media > 30 else "#BA7517" if media > 14 else "#0F6E56"
-                etapa_rows += (
-                    '<div style="margin-bottom:10px;">'
-                    '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">'
-                    '<span style="font-size:11px;color:#475467;font-weight:500;">' + etapa + '</span>'
-                    '<span style="font-size:11px;font-weight:700;color:' + cor + ';">' + str(media) + 'd</span>'
-                    '</div>'
-                    '<div style="height:8px;background:#e4e7ec;border-radius:4px;overflow:hidden;">'
-                    '<div style="height:8px;width:' + str(pct) + '%;background:' + cor + ';border-radius:4px;"></div>'
-                    '</div></div>'
-                )
-            st.markdown(
-                '<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">'
-                '<div style="font-size:10px;color:#98a2b3;margin-bottom:12px;">🟢 &lt;14d &nbsp; 🟠 14–30d &nbsp; 🔴 &gt;30d</div>'
-                + etapa_rows + '</div>',
-                unsafe_allow_html=True
+    max_dia = max(admissoes_por_dia.values(), default=1)
+
+    def cor_intensidade(n):
+        if n == 0:   return "var(--color-border-tertiary)", "transparent"
+        if n <= 2:   return "#B5D4F4", "#0C447C"
+        if n <= 6:   return "#85B7EB", "#0C447C"
+        return "#378ADD", "white"
+
+    # Gera meses necessários
+    meses_necessarios = set()
+    for dt in admissoes_por_dia:
+        meses_necessarios.add((dt.year, dt.month))
+    # Adiciona mês atual e próximo mesmo que vazios
+    meses_necessarios.add((hoje_dt.year, hoje_dt.month))
+    prox = hoje_dt.replace(day=1) + timedelta(days=32)
+    meses_necessarios.add((prox.year, prox.month))
+    meses_ord = sorted(meses_necessarios)[:3]
+
+    nomes_mes = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"]
+    dias_sem  = ["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"]
+
+    cal_html_parts = [
+        '<!DOCTYPE html><html><head><meta charset="UTF-8">',
+        '<style>',
+        '* { box-sizing:border-box; margin:0; padding:0; font-family:Segoe UI,Arial,sans-serif; }',
+        'body { background:transparent; padding:0; }',
+        '.meses { display:flex; gap:24px; flex-wrap:wrap; }',
+        '.mes { flex:1; min-width:200px; }',
+        '.mes-titulo { font-size:12px; font-weight:600; color:#344054; margin-bottom:8px; }',
+        '.grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }',
+        '.hdr { font-size:9px; font-weight:600; color:#98a2b3; text-align:center; padding:2px 0; }',
+        '.dia { aspect-ratio:1; border-radius:5px; display:flex; flex-direction:column;',
+        '       align-items:center; justify-content:center; font-size:10px; font-weight:500;',
+        '       border:0.5px solid transparent; cursor:default; }',
+        '.dia.vazio { background:transparent; border-color:transparent; }',
+        '.dia .dn { line-height:1; }',
+        '.dia .cnt { font-size:8px; font-weight:700; line-height:1; margin-top:1px; }',
+        '.dia.hoje { outline:2px solid #378ADD; outline-offset:1px; border-radius:5px; }',
+        '.legenda { display:flex; gap:10px; margin-top:10px; align-items:center; font-size:10px; color:#98a2b3; }',
+        '.leg-sq { width:10px; height:10px; border-radius:2px; flex-shrink:0; }',
+        '</style></head><body>',
+        '<div class="meses">',
+    ]
+
+    for ano, mes in meses_ord:
+        _, dias_no_mes = monthrange(ano, mes)
+        primeiro_dia   = date(ano, mes, 1)
+        offset         = primeiro_dia.weekday()  # 0=Seg
+
+        cal_html_parts.append('<div class="mes">')
+        cal_html_parts.append(f'<div class="mes-titulo">{nomes_mes[mes-1]} {ano}</div>')
+        cal_html_parts.append('<div class="grid">')
+
+        for d in dias_sem:
+            cal_html_parts.append(f'<div class="hdr">{d}</div>')
+
+        for _ in range(offset):
+            cal_html_parts.append('<div class="dia vazio"></div>')
+
+        for dia in range(1, dias_no_mes + 1):
+            dt      = date(ano, mes, dia)
+            n       = admissoes_por_dia.get(dt, 0)
+            bg, fc  = cor_intensidade(n)
+            is_hoje = dt == hoje_dt
+            extra   = ' hoje' if is_hoje else ''
+            style   = f'background:{bg};border-color:{bg};color:{"#475467" if n == 0 else fc};'
+            cal_html_parts.append(
+                f'<div class="dia{extra}" style="{style}">'
+                f'<div class="dn">{dia}</div>'
+                + (f'<div class="cnt">{n}</div>' if n > 0 else '')
+                + '</div>'
             )
 
+        cal_html_parts.append('</div></div>')
+
+    cal_html_parts += [
+        '</div>',
+        '<div class="legenda">',
+        '<span>Volume:</span>',
+        '<span class="leg-sq" style="background:var(--color-border-tertiary);border:0.5px solid #e4e7ec;"></span><span>0</span>',
+        '<span class="leg-sq" style="background:#B5D4F4;"></span><span>1–2</span>',
+        '<span class="leg-sq" style="background:#85B7EB;"></span><span>3–6</span>',
+        '<span class="leg-sq" style="background:#378ADD;"></span><span>7+</span>',
+        '</div>',
+        '</body></html>',
+    ]
+
+    cal_html_final = "".join(cal_html_parts)
+    n_meses = len(meses_ord)
+    components.html(cal_html_final, height=n_meses * 240 + 60, scrolling=False)
+
+    st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
+
     # ══════════════════════════════════════════
-    # 3. Distribuição por marca/unidade
+    # Distribuição por marca/unidade
     # ══════════════════════════════════════════
-    with col_r:
-        st.markdown("### 🏢 Processos por marca / unidade")
-        if not marca_ord:
-            st.info("Sem dados de marca.")
-        else:
-            marca_rows = ""
-            for marca, count in marca_ord:
-                pct = round((count / max_marca) * 100)
-                marca_rows += (
-                    '<div style="margin-bottom:10px;">'
-                    '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">'
-                    '<span style="font-size:11px;color:#475467;font-weight:500;">' + marca + '</span>'
-                    '<span style="font-size:11px;font-weight:700;color:#185FA5;">' + str(count) + '</span>'
-                    '</div>'
-                    '<div style="height:8px;background:#e4e7ec;border-radius:4px;overflow:hidden;">'
-                    '<div style="height:8px;width:' + str(pct) + '%;background:#185FA5;border-radius:4px;"></div>'
-                    '</div></div>'
-                )
-            st.markdown(
-                '<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">'
-                + marca_rows + '</div>',
-                unsafe_allow_html=True
+    st.markdown("### 🏢 Processos por marca / unidade")
+
+    if not marca_ord:
+        st.info("Sem dados de marca.")
+    else:
+        marca_rows = ""
+        for marca, count in marca_ord:
+            pct = round((count / max_marca) * 100)
+            marca_rows += (
+                '<div style="margin-bottom:10px;">'
+                '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">'
+                '<span style="font-size:11px;color:#475467;font-weight:500;">' + marca + '</span>'
+                '<span style="font-size:11px;font-weight:700;color:#185FA5;">' + str(count) + '</span>'
+                '</div>'
+                '<div style="height:8px;background:#e4e7ec;border-radius:4px;overflow:hidden;">'
+                '<div style="height:8px;width:' + str(pct) + '%;background:#185FA5;border-radius:4px;"></div>'
+                '</div></div>'
             )
+        st.markdown(
+            '<div style="background:white;border:1.5px solid #e4e7ec;border-radius:10px;padding:1.1rem 1.4rem;">'
+            + marca_rows + '</div>',
+            unsafe_allow_html=True
+        )
 
 
 # ─── KANBAN POR ETAPA ─────────────────────────
