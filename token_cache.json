@@ -1,0 +1,57 @@
+{
+    "AccessToken": {
+        "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b-login.microsoftonline.com-accesstoken-d3590ed6-52b3-4102-aeff-aad2292ab01c-common-https://animaeducacao.sharepoint.com/.default https://animaeducacao.sharepoint.com/user_impersonation": {
+            "credential_type": "AccessToken",
+            "secret": "eyJ0eXAiOiJKV1QiLCJub25jZSI6Ik8taEVSWFlfT1VKbTVKaUNNeW5kWVA0MDZkNWNzNUJ2enJ5RkZwdGE5N00iLCJhbGciOiJSUzI1NiIsIng1dCI6IlUxc1g4WUZIUzdaNlZsN1ZITEl6VGVqYnZqMCIsImtpZCI6IlUxc1g4WUZIUzdaNlZsN1ZITEl6VGVqYnZqMCJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC81NzA5NWE4Yy1hZGUzLTQ3MDYtYjdkNy0zMDM3OWU1ODkxOGIvIiwiaWF0IjoxNzc2OTgwMDE0LCJuYmYiOjE3NzY5ODAwMTQsImV4cCI6MTc3Njk4NDA5MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQWFRQVcvOGJBQUFBL01oK09uV29kUnZBaVFsUlhzQlRIZm5XQnNwRURMUlpCODJUOHdycGRremVuTE9FL3dvT2NISFFmNWRzTkNXalhSNzFxS2J2NHg3dFhOQWR3Ylh5TEtwbzdSSmhicndveHBHZ1MvSkp1WXFxUk5BOFBRKzYwTGVsdjUwY09zQ2lSaVFQWDhBZk00czZ0ejZFZWluMTh0bWM0ell3MHdYVXRKT2dzQWtSN0UrT0dWcS9yUzI4NWJwUHVkd1llWjcyWjFyTitUZGVMK1Brd2xZTFM0SVhoQT09IiwiYW1yIjpbInB3ZCIsIm1mYSJdLCJhcHBfZGlzcGxheW5hbWUiOiJNaWNyb3NvZnQgT2ZmaWNlIiwiYXBwaWQiOiJkMzU5MGVkNi01MmIzLTQxMDItYWVmZi1hYWQyMjkyYWIwMWMiLCJhcHBpZGFjciI6IjAiLCJmYW1pbHlfbmFtZSI6IlBFRFJPIENFTEVTVElOTyBEQSBTSUxWQSIsImdpdmVuX25hbWUiOiJKT0FPIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiMjgwNDo3ZjA6YjMwMjoyOTQ0OmU1ZjM6MTEwMzpjOWYwOjhlNiIsIm5hbWUiOiJKT0FPIFBFRFJPIENFTEVTVElOTyBEQSBTSUxWQSIsIm9pZCI6ImJjOTIxMWJiLTg3MjktNDk5OS1hOGYxLWFmZDRjYmE5NjVmMCIsIm9ucHJlbV9zaWQiOiJTLTEtNS0yMS0yNTExNDAwODM2LTE3NzExMzU2MjQtODc2MjI3NjczLTI0NDQ3OSIsInB1aWQiOiIxMDAzMjAwNUM2NzFENDlEIiwicmgiOiIxLkFUUUFqRm9KVi1PdEJrZTMxekEzbmxpUml3TUFBQUFBQVBFUHpnQUFBQUFBQUFBQUFLVTBBQS4iLCJzY3AiOiJ1c2VyX2ltcGVyc29uYXRpb24iLCJzZWNhdWQiOnsiYXVkIjoiMDAwMDAwMDMtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwIiwic2NwIjoiRGlyZWN0b3J5LlJlYWQuQWxsIEdyb3VwTWVtYmVyLlJlYWQuQWxsIEdyb3VwU2V0dGluZ3MuUmVhZC5BbGwgT3JnYW5pemF0aW9uLlJlYWQuQWxsIFVzZXIuSW52aXRlLkFsbCBVc2VyLlJlYWQuQWxsIFVzZXIuUmV2b2tlU2Vzc2lvbnMuQWxsIn0sInNpZCI6IjAwM2U3MDdhLTkwZDMtNTA5My05Y2ZiLWE2OTI2OTViYTgyYyIsInN1YiI6IkttMUZpNWk5QXJUS1k4SEVkREM3TEhRcjgxSXJCRkFzZ1lYYmtIZ0ZWRzAiLCJ0aWQiOiI1NzA5NWE4Yy1hZGUzLTQ3MDYtYjdkNy0zMDM3OWU1ODkxOGIiLCJ1bmlxdWVfbmFtZSI6ImpvYW8uY2VsZXN0aW5vQGFuaW1hZWR1Y2FjYW8uY29tLmJyIiwidXBuIjoiam9hby5jZWxlc3Rpbm9AYW5pbWFlZHVjYWNhby5jb20uYnIiLCJ1dGkiOiJtb1NjWTNiTVNFNlpoZGNJNVhwREFBIiwidmVyIjoiMS4wIiwid2lkcyI6WyJiNzlmYmY0ZC0zZWY5LTQ2ODktODE0My03NmIxOTRlODU1MDkiXSwieG1zX2FjdF9mY3QiOiIzIDUiLCJ4bXNfZnRkIjoid2tlcXFrWGdSM3dlNk1sWDRrUXNDcGFidWM2MFNmTHNUQ3pZUjNDQ2RnQUJkWE4zWlhOME15MWtjMjF6IiwieG1zX2lkcmVsIjoiMTQgMSIsInhtc19wZnRleHAiOjE3NzcwNzA0OTAsInhtc19zdWJfZmN0IjoiMTYgMyIsInhtc190bnRfZmN0IjoiMyAxNiJ9.ATYOyGRAmVeyCI8tREODi_rCnshgW-BZhv-DtMKuBuM7TtKCJcKNYABCRfIuZ0L-0RVsqp5yqnsUggoUYf83GQNjP4FGuSqnPWWuq8b3Z0r9LOkUb-lLFJFROwOZCp1ReY2e7RduRm2fXr0_X1xFtPAUdmb7vURGguXMxAj4gEIEr2iIIx95Cq3zqO4r6dzHk42bsQ0LUQUauCs6CmrqWq6UGVzHJos_o5nN0fasiVhR7LxOwjuI_u2G9hfXndyaIaRqctSWQ8eGvqTmYENbtAoR3NLqaxAi6YRVgmBV3TKsYZ4FbX2QNziZtaF1CZZJyCv6ihi3Pjq3SRwpB0pQYA",
+            "home_account_id": "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b",
+            "environment": "login.microsoftonline.com",
+            "client_id": "d3590ed6-52b3-4102-aeff-aad2292ab01c",
+            "target": "https://animaeducacao.sharepoint.com/.default https://animaeducacao.sharepoint.com/user_impersonation",
+            "realm": "common",
+            "token_type": "Bearer",
+            "cached_at": "1776980319",
+            "expires_on": "1776984094",
+            "extended_expires_on": "1776984094"
+        }
+    },
+    "Account": {
+        "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b-login.microsoftonline.com-common": {
+            "home_account_id": "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b",
+            "environment": "login.microsoftonline.com",
+            "realm": "common",
+            "local_account_id": "bc9211bb-8729-4999-a8f1-afd4cba965f0",
+            "username": "joao.celestino@animaeducacao.com.br",
+            "authority_type": "MSSTS",
+            "account_source": "urn:ietf:params:oauth:grant-type:device_code"
+        }
+    },
+    "IdToken": {
+        "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b-login.microsoftonline.com-idtoken-d3590ed6-52b3-4102-aeff-aad2292ab01c-common-": {
+            "credential_type": "IdToken",
+            "secret": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlUxc1g4WUZIUzdaNlZsN1ZITEl6VGVqYnZqMCJ9.eyJhdWQiOiJkMzU5MGVkNi01MmIzLTQxMDItYWVmZi1hYWQyMjkyYWIwMWMiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vNTcwOTVhOGMtYWRlMy00NzA2LWI3ZDctMzAzNzllNTg5MThiL3YyLjAiLCJpYXQiOjE3NzY5ODAwMTQsIm5iZiI6MTc3Njk4MDAxNCwiZXhwIjoxNzc2OTgzOTE0LCJhaW8iOiJBYlFBUy84YkFBQUErbXR6d0VDU2lvVVYvZ1RXdlU3ZnJiNVp0NDVjNEZ1eWlIVlZLRXRJcnBoR0ZQV3FLd1F0Q203YVNXL1poa1htdGFnSTFlTXlDcWREZTZQTEZlM2VmYnpoK3kvVjl0dndSTVlGblk5cll6aDlNRkdoUDZsM2VMK1RIWkNOWk40dUpzL1EwK3B0VTN2QUQrc1lEbjJZeThtdzRsUWh3cHdVK0tPUmpzYkZpcytZMVJHU1RMNCtFNDFsZlNEVTFjdDlzdGlFcHpjdko4aEpYYXM1RDN3MEFLcElBUmUxdDd2ZmVBWC9WUFMrT2owPSIsImlkdHlwIjoidXNlciIsIm5hbWUiOiJKT0FPIFBFRFJPIENFTEVTVElOTyBEQSBTSUxWQSIsIm9pZCI6ImJjOTIxMWJiLTg3MjktNDk5OS1hOGYxLWFmZDRjYmE5NjVmMCIsInByZWZlcnJlZF91c2VybmFtZSI6ImpvYW8uY2VsZXN0aW5vQGFuaW1hZWR1Y2FjYW8uY29tLmJyIiwicHVpZCI6IjEwMDMyMDA1QzY3MUQ0OUQiLCJyaCI6IjEuQVRRQWpGb0pWLU90QmtlMzF6QTNubGlSaTlZT1dkT3pVZ0pCcnYtcTBpa3FzQndBQUtVMEFBLiIsInNpZCI6IjAwM2U3MDdhLTkwZDMtNTA5My05Y2ZiLWE2OTI2OTViYTgyYyIsInN1YiI6ImV4d2h4dXRkVk9jUkUzaUJlcDdXOEhteUtpVGp3emFTbllmZzNTakFPZVkiLCJ0aWQiOiI1NzA5NWE4Yy1hZGUzLTQ3MDYtYjdkNy0zMDM3OWU1ODkxOGIiLCJ1cG4iOiJqb2FvLmNlbGVzdGlub0BhbmltYWVkdWNhY2FvLmNvbS5iciIsInV0aSI6Im1vU2NZM2JNU0U2WmhkY0k1WHBEQUEiLCJ2ZXIiOiIyLjAiLCJ4bXNfaWRyZWwiOiIxIDYifQ.qKd1Qa1G33J_GHC2X2a1CqBVU_HDzdV0_RgU6TfyDOHUM0wArLjMToA4E00LSXqA3htAOBc9WRsRLzaHtnN6pHjlOz6C5_Csck7l7SIYl8QMhWLxbpYcD0EAbui3OoUC5y1z-_jD9OWCTf9NQmT2jyudqGwASbGCxQY2JXb6ul7yAom8xUBwbg5LZ-Q4BP6ZFSwYlaOQ3Wcf-07Ve4wJPOt3x_f1X_r-r838aiaYWBona-vxCOUH9X_0qlV7rt5Fr3hLSHiQ3OC5ABzkBNFiphatBdFJIT15CIgadwfCKACqC9w7wyKT75r9q49JBvVCWY94iPxmFpmKrhiM2ut0Vw",
+            "home_account_id": "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b",
+            "environment": "login.microsoftonline.com",
+            "realm": "common",
+            "client_id": "d3590ed6-52b3-4102-aeff-aad2292ab01c"
+        }
+    },
+    "RefreshToken": {
+        "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b-login.microsoftonline.com-refreshtoken-d3590ed6-52b3-4102-aeff-aad2292ab01c--https://animaeducacao.sharepoint.com/.default https://animaeducacao.sharepoint.com/user_impersonation": {
+            "credential_type": "RefreshToken",
+            "secret": "1.ATQAjFoJV-OtBke31zA3nliRi9YOWdOzUgJBrv-q0ikqsBwAAKU0AA.BQABAwEAAAADAOz_BQD0_0V2b1N0c0FydGlmYWN0cwIAAAAAADSF7vzxPOXMBETOk_CGYrbhM24cACOgGrIM8AmPe8pfVxfqIG-xKzd9TenXuAttPP1TGzAj9EFbE4Hy4lrRB_S9DzaEaeKif2cLX4tqVCnzz8OY7MZavsPbwDS3LpVL5jdEL1G4MQW7-dRWxTDQU5eCGzFmVHMd9Huf90AdZ1SRK7X0sUexmAAFJ9clu3F44xmNz_sVSzumfrQYG7-sOQV6dMq5z7NPvRu4SEX75xOkDyrs6OL_xF1USB4QS480puz69wwwbcFiA4mbeN-4loBzNLdW--mPekQfXnHXPOw4OAl-GogRCNHS3A-gCEx0uZVoz6y43H3auE91BPJHEvmUIO-k1gGIFpeigTcLGspWOOsIdWWo0tHOyF0AM3iCNHXtOAMO56IINK7qYexhHbdjP2ziUtmIr7v7jxdWQPgu-_6_M90ip_QGW2C6t9fN16YhA2uiKI1ePXNdhXxqR5DwAcVxBNXgXbSgMhw6uESEoo9jAolyGIb_S-yI0hQo1pEMrObxXcTMmLlKFJH5uOeLh5XpiYVwqOTdbrLjjp4O-IBf6ih6vstArxvEfu9wILebm2QkbWBUokm6cj_X7_gogssqgZOJv0vjjn46SR7m7DIWa4C4cpgFC0a6aMX9f0sTCzSbMKSo7g-SoVkXiZ1jWKWvpjgmbYk0laXJWBFIfbKd8L6xNPUdxa6COXthFA8X2vMmvzyTYRjGPBuFuFLGxe3ZS18mJ4f1yqnZT9oULP_x5HRtSIEN0gsfmBU8bQVZ5_SY-f8YUVCTrG_nsrvyZ1lFiCmzJfREYVGRp4tq48sqwRgxRK9xof5M_E-x5K4-CghjdYJ7iGJIiuFsyNFpRM0msjNmD0yZ4UQ8GotIWDvOnqAXwIKsumwyAylZJ8Vz-lQOReyHhF_mCKKxTo1qvI1WWgaXi6zEd8yqTQ5vaNofHTcTPWFeU523sfTr1hV_GQ9p14FoI2gomcPVG_clzE2eVWogEglOGq31-xvcJ_DV3xciyGoQ-66XC0fVVvYufneaxSfv4JgLF7_6-k-uys5c2IDEspOSgwUwTShhDXp1CpMEGjTodvi9clIGweOCCmscbHw35kHiUpCxZa91De_6HQseA2XKt-L7o63hbbN_AVjUHzIkGPNl5w0IEXtLZinVEummTRrTwros4A7rg8wHJNQboFhrhJ2si12R90phOa0TdxucXVsNitEmovSBwIbqnRsjPz_Ie0U6eHEzeb3ARUIO6tgoEt-7xpXr16Bk7wISKGaSEUo63o7C97Jre5XM7hW59mDkFYnoRjOzEx8mA-xn5VjVBcAR-UgNHjwoGCZrAB6Serx7waOXhX13vBOtzg4T_TqQZR-e5ftqjZw1WtqGT4EN3N5ZXKUJTFpDuDxoTrC643cInTfq6noEEXTHIQAA6hTSbh53KFwpKN84YvSDaJMLJB9mT4e3eL1pywt7YF4zkeVLux6AL31MA4bNrpNK4TWaypmqaQFMNrHW2tuHmwhTRWZ8pQCE_P_YbbmSP_w9JD6-4jV2mDLuUsMZ_F3rrBAchL1qL29h38e2yGkZgxH6dLPxUxM",
+            "home_account_id": "bc9211bb-8729-4999-a8f1-afd4cba965f0.57095a8c-ade3-4706-b7d7-30379e58918b",
+            "environment": "login.microsoftonline.com",
+            "client_id": "d3590ed6-52b3-4102-aeff-aad2292ab01c",
+            "target": "https://animaeducacao.sharepoint.com/.default https://animaeducacao.sharepoint.com/user_impersonation",
+            "last_modification_time": "1776980319",
+            "family_id": "1"
+        }
+    },
+    "AppMetadata": {
+        "appmetadata-login.microsoftonline.com-d3590ed6-52b3-4102-aeff-aad2292ab01c": {
+            "client_id": "d3590ed6-52b3-4102-aeff-aad2292ab01c",
+            "environment": "login.microsoftonline.com",
+            "family_id": "1"
+        }
+    }
+}
