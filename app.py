@@ -96,7 +96,7 @@ _LABEL_STATUS = {
     "17 - Exame realizado. Documentos pendentes":               "Exame realizado — documentos pendentes com colaborador",
     "18 - Documentação ok . Pendente ASO/enquad.PCD":           "Aguardando laudo ASO / enquadramento PCD",
     "19 - Data admissão alterada|Gestor e recrutador cientes":  "Data de admissão alterada",
-    "20 - Aguardando finalização da jornada de benefícios":     "Colaborador deve concluir jornada de benefícios",
+    "20 - Aguardando finalização da jornada de benefícios":     "Candidato deve concluir jornada de benefícios",
 }
 
 
@@ -461,8 +461,8 @@ _RESP_ORDER = ["RECRUTAMENTO", "REMUNERACAO", "COLABORADOR", "TERCEIRO", "ADMISS
 _RESP_META  = {
     "RECRUTAMENTO": {"label": "Recrutamento", "cor": "#7F77DD", "key": "RECRUTAMENTO"},
     "REMUNERACAO":  {"label": "Remuneração",  "cor": "#BA7517", "key": "REMUNERAÇÃO"},
-    "COLABORADOR":  {"label": "Colaborador",  "cor": "#185FA5", "key": "COLABORADOR"},
-    "TERCEIRO":     {"label": "Terceiros",    "cor": "#A32D2D", "key": "TERCEIRO"},
+    "COLABORADOR":  {"label": "Candidato",  "cor": "#185FA5", "key": "COLABORADOR"},
+    "TERCEIRO":     {"label": "Exame admissional",    "cor": "#A32D2D", "key": "TERCEIRO"},
     "ADMISSAO":     {"label": "Admissão",     "cor": "#0F6E56", "key": "ADMISSÃO"},
 }
 
@@ -619,8 +619,8 @@ with aba_gargalos:
 
     card_resp_gargalo(col_a, "✏️", "Recrutamento", pr.get("RECRUTAMENTO", 0), "#7F77DD", "validação R&S")
     card_resp_gargalo(col_b, "💰", "Remuneração",  pr.get("REMUNERAÇÃO", 0),  "#BA7517", "validação salarial")
-    card_resp_gargalo(col_c, "👤", "Colaborador",  pr.get("COLABORADOR", 0),  "#185FA5", "ação do candidato")
-    card_resp_gargalo(col_d, "🔬", "Terceiros",    pr.get("TERCEIRO", 0),     "#A32D2D", "clínica / 3778")
+    card_resp_gargalo(col_c, "👤", "Candidato",  pr.get("COLABORADOR", 0),  "#185FA5", "ação do candidato")
+    card_resp_gargalo(col_d, "🔬", "Exame admissional",    pr.get("TERCEIRO", 0),     "#A32D2D", "clínica / 3778")
     card_resp_gargalo(col_e, "🏢", "Admissão",     pr.get("ADMISSÃO", 0),     "#0F6E56", "ação interna")
 
     st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
@@ -706,8 +706,8 @@ const PRIOR_CFG = {{
 const COLUNAS = [
   {{resp:'RECRUTAMENTO', cls:'col-rec',   icon:'✏️', label:'Recrutamento', sub:'validação R&S'}},
   {{resp:'REMUNERAÇÃO',  cls:'col-rem',   icon:'💰', label:'Remuneração',  sub:'validação salarial'}},
-  {{resp:'COLABORADOR',  cls:'col-colab', icon:'👤', label:'Colaborador',  sub:'ação do candidato'}},
-  {{resp:'TERCEIRO',     cls:'col-ter',   icon:'🔬', label:'Terceiros',    sub:'clínica / 3778'}},
+  {{resp:'COLABORADOR',  cls:'col-colab', icon:'👤', label:'Candidato',  sub:'ação do candidato'}},
+  {{resp:'TERCEIRO',     cls:'col-ter',   icon:'🔬', label:'Exame admissional',    sub:'clínica / 3778'}},
   {{resp:'ADMISSÃO',     cls:'col-adm',   icon:'🏢', label:'Admissão',     sub:'ação interna'}},
 ];
 function esc(s){{return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}}
@@ -979,7 +979,7 @@ const PRIOR_CFG = {{
   'Normal': {{label:'⚪ Normal', cls:'b-normal', urg:''}},
 }};
 const RESP_CFG = {{
-  'COLABORADOR': {{label:'👤 Colaborador', cls:'b-colab'}},
+  'COLABORADOR': {{label:'👤 Candidato', cls:'b-colab'}},
   'ADMISSÃO':    {{label:'🏢 Admissão',    cls:'b-time'}},
   'RECRUTAMENTO':{{label:'✏️ Recrutamento',cls:'b-rec'}},
   'REMUNERAÇÃO': {{label:'💰 Remuneração', cls:'b-rec'}},
@@ -1049,8 +1049,8 @@ with aba_tabela:
             "Todos": "",
             "✏️ Recrutamento":  "RECRUTAMENTO",
             "💰 Remuneração":   "REMUNERAÇÃO",
-            "👤 Colaborador":   "COLABORADOR",
-            "🔬 Terceiros":     "TERCEIRO",
+            "👤 Candidato":   "COLABORADOR",
+            "🔬 Exame admissional":     "TERCEIRO",
             "🏢 Admissão":      "ADMISSÃO",
         }
         f_resp_acao = resp_acoes[st.selectbox("Responsável pela ação", list(resp_acoes.keys()))]
